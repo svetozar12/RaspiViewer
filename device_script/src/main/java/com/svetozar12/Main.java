@@ -23,7 +23,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException, URISyntaxException {
-        String serverUri = "ws://your_server_ip:3000";
+        String serverUri = "ws://localhost:3333";
         WebSocketClient client = new WebSocketClient(new URI(serverUri)) {
             @Override
             public void onOpen(ServerHandshake handshake) {
