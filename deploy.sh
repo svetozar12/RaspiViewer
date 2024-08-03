@@ -30,7 +30,7 @@ docker rm $CONTAINER_NAME 2>/dev/null || true
 
 # Run the Docker container with /sys mounted
 docker run -d --name $CONTAINER_NAME --restart always \
-    -v /sys:/sys
+    -v /sys:/sys \
     $IMAGE_NAME
 
 if [ $? -eq 0 ]; then
