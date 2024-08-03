@@ -1,5 +1,5 @@
 to get deploy script
-`wget https://raw.githubusercontent.com/svetozar12/RaspiViewer/main/deploy.sh`
+`wget -O https://raw.githubusercontent.com/svetozar12/RaspiViewer/main/deploy.sh`
 
 to run it bash deploy.sh
 

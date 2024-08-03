@@ -2,7 +2,7 @@
 
 # Define variables
 IMAGE_NAME="sgospodinov02/device_script:latest"
-CONTAINER_NAME="sgospodinov02/deviceScript"
+CONTAINER_NAME="deviceScript"
 
 # Function to install Docker
 install_docker() {
