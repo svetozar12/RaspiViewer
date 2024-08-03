@@ -3,6 +3,7 @@
 # Define variables
 IMAGE_NAME="sgospodinov02/device_script:latest"
 CONTAINER_NAME="deviceScript"
+WEBSOCKET_SERVER="$1"
 
 # Function to install Docker
 install_docker() {
@@ -31,6 +32,7 @@ docker rm $CONTAINER_NAME 2>/dev/null || true
 # Run the Docker container with /sys mounted
 docker run -d --name $CONTAINER_NAME --restart always \
     -v /sys:/sys \
+    -e WEBSOCKET_SERVER=$WEBSOCKET_SERVER \
     $IMAGE_NAME
 
 if [ $? -eq 0 ]; then
