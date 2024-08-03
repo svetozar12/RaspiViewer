@@ -2,7 +2,7 @@
 
 # Define variables
 IMAGE_NAME="sgospodinov02/device_script:latest"
-CONTAINER_NAME="sgospodinov02/device_script"
+CONTAINER_NAME="sgospodinov02/deviceScript"
 
 # Function to install Docker
 install_docker() {
@@ -32,3 +32,4 @@ docker rm $CONTAINER_NAME 2>/dev/null || true
 docker run -d --name $CONTAINER_NAME --restart always $IMAGE_NAME
 
 echo "Deployment complete. The Docker container is running as $CONTAINER_NAME."
+
