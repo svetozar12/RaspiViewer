@@ -8,12 +8,13 @@ public class Main {
         UUIDManager uuidManager = new UUIDManager();
         String deviceId = uuidManager.getOrCreateUUID(); // Use UUIDManager to get or create UUID
 
-        String serverUri = System.getenv("WEBSOCKET_SERVER");
-        if (serverUri == null) {
+        String serverUri = "ws://" + System.getenv("API_URL");
+        if (System.getenv("API_URL") == null) {
             throw new IllegalArgumentException("WebSocket server address not specified in environment variables");
         }
         serverUri += "/?deviceId=" + deviceId;
-
+        // create a device on first run
+        HTTPRequest.createDevice();
         WebSocketClientManager clientManager = new WebSocketClientManager(serverUri);
         clientManager.connectAndRun();
     }
