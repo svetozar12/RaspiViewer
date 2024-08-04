@@ -4,16 +4,26 @@
  */
 
 import express from "express";
-import swaggerUi from "swagger-ui-express";
 import { appRouter } from "./routes";
 import WebSocket from "ws";
 import url from "url";
 import { connectMongo } from "./config/mongo";
+import bodyParser from "body-parser";
+import cors from "cors";
+
 const app = express();
 
 connectMongo();
 
-app.use("/api", appRouter);
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  }),
+);
+app.use(bodyParser.json());
+app.use(cors());
+
+app.use("/", appRouter);
 
 const port = process.env.PORT || 3333;
 const server = app.listen(port, () => {
@@ -34,8 +44,8 @@ wss.on("connection", (ws, req) => {
     }
 
     clients.set(deviceId, ws);
-    console.log(`Device ${deviceId} connected`);
-    console.log(`Received: ${message}`);
+    // console.log(`Device ${deviceId} connected`);
+    // console.log(`Received: ${message}`);
     const data = JSON.parse(message.toString());
     console.log(data);
   });

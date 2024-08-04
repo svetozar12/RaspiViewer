@@ -1,11 +1,20 @@
-# Use an official OpenJDK runtime as a parent image
-FROM openjdk:17-jdk-slim
+# Use an official Python runtime as a parent image
+FROM python:3.11-slim
 
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy the JAR file into the container at /app
-COPY target/DeviceScript-1.0.jar /app/DeviceScript.jar
+# Copy the current directory contents into the container at /app
+COPY . /app
 
-# Command to run the JAR file
-CMD ["java", "-jar", "DeviceScript.jar"]
+# Install any needed packages specified in requirements.txt
+RUN pip install --no-cache-dir requests websocket-client
+
+# Make port 80 available to the world outside this container
+EXPOSE 80
+
+# Define environment variable
+ENV NAME World
+
+# Run app.py when the container launches
+CMD ["python", "main.py"]
