@@ -31,9 +31,16 @@ const server = app.listen(port, () => {
 });
 // WebSocket server
 const wss = new WebSocket.Server({ server });
-// Store connected clients
-const clients = new Map();
+const clients: Array<{ websocket: WebSocket }> = [];
+
 wss.on("connection", (ws, req) => {
+  console.log("hello");
+  clients.push({ websocket: ws });
+  const wsExist = clients.some(
+    (client) => JSON.stringify(client) === JSON.stringify(ws),
+  );
+  if (!wsExist) clients.push({ websocket: ws });
+
   ws.on("message", (message) => {
     const parameters = url.parse(String(req.url), true).query;
     const deviceId = parameters.deviceId;
@@ -43,11 +50,12 @@ wss.on("connection", (ws, req) => {
       return;
     }
 
-    clients.set(deviceId, ws);
+    clients.push({ websocket: ws });
     // console.log(`Device ${deviceId} connected`);
-    // console.log(`Received: ${message}`);
-    const data = JSON.parse(message.toString());
-    console.log(data);
+    console.log(`Received: ${message}`);
+    clients.forEach((client) => {
+      client.websocket.send(message.toString());
+    });
   });
 
   ws.on("close", (code, reason) => {
