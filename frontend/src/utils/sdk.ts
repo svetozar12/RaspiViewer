@@ -2,7 +2,7 @@ import axios from "axios";
 
 const client = axios.create({ baseURL: "http://localhost:3333" });
 
-type Device = {
+export type Device = {
   userId: string;
   name: string;
   ip_address: string;

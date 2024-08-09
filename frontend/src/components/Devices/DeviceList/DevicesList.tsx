@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { sdk } from "../../../utils/sdk";
-
+import DevicesTable from "./subcomponents/DevicesTable";
+import { Typography } from "@mui/material";
 const DevicesList = () => {
   const {
     deviceApi: { getList },
@@ -13,20 +14,12 @@ const DevicesList = () => {
 
   if (isLoading) return <>loading</>;
   if ((error && !isLoading) || !data) return <>VERY BAD</>;
-  const {
-    data: { devices },
-  } = data;
 
   return (
-    <div>
-      {devices.map(({ name, uuid }) => {
-        return (
-          <a key={uuid} href={"/devices/" + uuid}>
-            {name}
-          </a>
-        );
-      })}
-    </div>
+    <>
+      <Typography variant="h2">Pi Devices</Typography>
+      <DevicesTable />
+    </>
   );
 };
 

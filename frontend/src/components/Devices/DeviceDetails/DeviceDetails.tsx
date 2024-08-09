@@ -1,4 +1,3 @@
-import { Chart } from "chart.js";
 import React, { useEffect, useState } from "react";
 
 import {
@@ -7,7 +6,6 @@ import {
   Line,
   LineChart,
   Tooltip,
-  XAxis,
   YAxis,
 } from "recharts";
 
@@ -43,7 +41,7 @@ const DevicesDetails = () => {
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <YAxis />
+        <YAxis type="number" dataKey="cpu_temperature" stroke="#8884d8" />
         <Tooltip />
         <Legend />
         <Line

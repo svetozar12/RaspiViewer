@@ -26,6 +26,10 @@ devicesRouter.get("/:id", async (req, res) => {
 devicesRouter.post("/", async (req, res) => {
   try {
     const body = req.body;
+    const deviceExist = await Device.findOne({ uuid: body.uuid }).lean();
+    if (deviceExist) {
+      return res.send(deviceExist);
+    }
     const device = new Device({
       ...body,
       userId: new Types.ObjectId(),
