@@ -8,9 +8,8 @@ export class WebSocketClientManager {
 
   connectAndRun() {
     const runForever = async () => {
+      this.ws = new WebSocket(this.serverUri);
       while (true) {
-        this.ws = new WebSocket(this.serverUri);
-
         this.ws.on("open", () => this.onOpen());
         this.ws.on("message", (message) => this.onMessage(message));
         this.ws.on("close", (code, reason) =>
