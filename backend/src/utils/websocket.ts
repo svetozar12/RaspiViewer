@@ -60,6 +60,3 @@ export class WebSocketWrapper {
     );
   }
 }
-
-const wss = new WebSocket.Server({ port: 8080 });
-const wsWrapper = new WebSocketWrapper(wss);

@@ -25,6 +25,7 @@ const DevicesTable = () => {
   ];
   return (
     <DataGrid
+      sx={{ maxWidth: 800 }}
       getRowId={(row) => row?.uuid}
       rows={devices}
       columns={columns}
