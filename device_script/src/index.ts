@@ -5,6 +5,8 @@ import { getCpuTemperature } from "./utils/cpu/getCpuTemp";
 import { createDevice } from "./utils/createDevice";
 import { getOrCreateUUID } from "./utils/getOrCreateUUID";
 import { getCpuUtilization } from "./utils/cpu/getCpuUtilization";
+import { getCpuFreq } from "./utils/cpu/getCpuFreq";
+import { getMemory } from "./utils/memory/getMemory";
 
 async function main() {
   const deviceId = await getOrCreateUUID();
@@ -25,9 +27,15 @@ async function main() {
   for await (const _ of setInterval(10000)) {
     const cpuTemp = await getCpuTemperature();
     const cpuUtilization = await getCpuUtilization();
+    const cpuFreq = await getCpuFreq();
+    const memory = await getMemory();
     const data = JSON.stringify({
-      cpu_temperature: Math.round(cpuTemp * 100) / 100,
-      cpuUtilization,
+      cpu: {
+        cpuTemp: Math.round(cpuTemp * 100) / 100,
+        cpuUtilization,
+        cpuFreq,
+        memory,
+      },
     });
     clientManager.sendData(data);
   }
