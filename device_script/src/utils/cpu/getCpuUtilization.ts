@@ -1,4 +1,5 @@
 import { exec } from "child_process";
+import { execute } from "../execute";
 
 let prevIdle = 0;
 let prevTotal = 0;
@@ -33,17 +34,4 @@ export async function getCpuUtilization(): Promise<string> {
   prevTotal = currTotal;
 
   return cpuUsage.toFixed(2);
-}
-
-function execute(command: string): Promise<string> {
-  return new Promise((resolve, reject) => {
-    exec(command, (error, stdout, stderr) => {
-      if (error) {
-        console.error(`exec error: ${error}`);
-        reject(error);
-        return;
-      }
-      resolve(stdout);
-    });
-  });
 }

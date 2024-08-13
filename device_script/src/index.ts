@@ -7,6 +7,7 @@ import { getOrCreateUUID } from "./utils/getOrCreateUUID";
 import { getCpuUtilization } from "./utils/cpu/getCpuUtilization";
 import { getCpuFreq } from "./utils/cpu/getCpuFreq";
 import { getMemory } from "./utils/memory/getMemory";
+import { getDisk } from "./utils/disk/getDisk";
 
 async function main() {
   const deviceId = await getOrCreateUUID();
@@ -29,12 +30,14 @@ async function main() {
     const cpuUtilization = await getCpuUtilization();
     const cpuFreq = await getCpuFreq();
     const memory = await getMemory();
+    const disk = await getDisk();
     const data = JSON.stringify({
       cpu: {
         cpuTemp: Math.round(cpuTemp * 100) / 100,
         cpuUtilization,
         cpuFreq,
         memory,
+        disk,
       },
     });
     clientManager.sendData(data);

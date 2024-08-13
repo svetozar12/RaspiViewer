@@ -19,14 +19,11 @@ export async function createDevice(id: string): Promise<void> {
   };
 
   try {
-    const response = await fetch(GET_URL, {
+    await fetch(GET_URL, {
       method: "POST",
       body: jsonPayload,
       headers,
     });
-    console.log(`Response Status Code: ${response.status}`);
-    const responseBody = await response.text();
-    console.log(`Response Body: ${responseBody}`);
   } catch (error) {
     console.error("Error sending createDevice request:", error);
   }
